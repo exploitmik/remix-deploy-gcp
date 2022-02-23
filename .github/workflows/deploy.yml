@@ -57,7 +57,10 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.18.0
         with:
-          slack-message: "Uma nova versão de **remix-app** foi enviada para produção!"
+          payload: |
+            {
+              "text": "Uma nova versão de **remix-app** foi enviada para produção!",
+            }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
