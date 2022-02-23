@@ -1,7 +1,7 @@
 runtime: nodejs16
 
 instance_class: F1
-service: remix-app
+service: default
 
 handlers:
   - url: /build
