@@ -1,6 +1,19 @@
+import { json, LoaderFunction, useLoaderData } from "remix";
+import axios from "axios";
+
+export const loader: LoaderFunction = async () => {
+  const { data } = await axios.get(
+    "https://rickandmortyapi.com/api/character/1"
+  );
+  return data;
+};
+
 export default function Index() {
+  const data = useLoaderData();
+
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
+      {JSON.stringify(data)}
       <h1>Welcome to Remix</h1>
       <ul>
         <li>
