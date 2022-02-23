@@ -1,8 +1,3 @@
 runtime: nodejs16
 
 instance_class: F1
-service: default
-
-handlers:
-  - url: /build
-    static_dir: public/build
