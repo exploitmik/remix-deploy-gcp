@@ -65,7 +65,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Uma nova versão de remix-app foi enviada para produção!"
+                    "text": "Uma nova versão de **remix-app** foi enviada para produção!"
                   }
                 }
               ]
