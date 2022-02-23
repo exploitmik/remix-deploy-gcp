@@ -59,7 +59,16 @@ jobs:
         with:
           payload: |
             {
-              "text": "Uma nova versão de **remix-app** foi enviada para produção!",
+              "text": "Deploy realizado",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Uma nova versão de remix-app foi enviada para produção!"
+                  }
+                }
+              ]
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
