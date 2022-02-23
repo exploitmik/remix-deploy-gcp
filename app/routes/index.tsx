@@ -22,7 +22,7 @@ export default function Index() {
             href="https://remix.run/tutorials/blog"
             rel="noreferrer"
           >
-            15m Quickstart Blog Tutorial
+            15m Quickstart Blog Tutorialss
           </a>
         </li>
         <li>
