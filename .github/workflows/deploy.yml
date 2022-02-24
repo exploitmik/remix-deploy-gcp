@@ -26,7 +26,7 @@ jobs:
         env:
           DEPLOY_ENVIRONMENT: production
           DEPLOY_STAGGED: false
-        run: echo ${{ steps.checkout.modified }}
+        run: echo ${{ steps.checkout.outputs.modified }}
   say:
     name: Other job
     runs-on: ubuntu-latest
