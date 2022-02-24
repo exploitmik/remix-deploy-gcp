@@ -12,7 +12,7 @@ jobs:
     environment: gcp
 
     steps:
-      - name: Cancel Previous Runs!!
+      - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.9.1
 
       - name: Checkout
@@ -33,7 +33,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: yarn
+        run: yarn install --frozen-lockfile
 
       - name: Build Remix App
         run: yarn build
