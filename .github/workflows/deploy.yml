@@ -26,6 +26,7 @@ jobs:
   say:
     name: Other job
     runs-on: ubuntu-latest
+    needs: [deploy]
 
     steps:
       - name: "Say Hi!"
