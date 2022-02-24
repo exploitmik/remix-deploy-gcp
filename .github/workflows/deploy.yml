@@ -12,13 +12,13 @@ jobs:
     environment: gcp
 
     steps:
-      - name: ✅ Cancel Previous Runs
+      - name: 🚀 Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.9.1
 
-      - name: ✅ Checkout
+      - name: 🚀 Checkout
         uses: actions/checkout@v2
 
-      - name: ✅ Cache node_modules
+      - name: 🚀 Cache node_modules
         id: cache-node-modules
         uses: actions/cache@v2
         env:
@@ -31,20 +31,20 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: ✅ Install dependencies
+      - name: 🚀 Install dependencies
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
 
-      - name: ✅ Build Remix App
+      - name: 🚀 Build Remix App
         run: yarn build
 
-      - name: ✅ Authentication Google Cloud
+      - name: 🚀 Authentication Google Cloud
         id: "auth"
         uses: "google-github-actions/auth@v0"
         with:
           credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
 
-      - name: ✅ Deploy to App Engine
+      - name: 🚀 Deploy to App Engine
         id: deploy
         uses: google-github-actions/deploy-appengine@v0
         with:
@@ -53,10 +53,10 @@ jobs:
           promote: false
           project_id: ${{ secrets.GCP_PROJECT }}
 
-      - name: ✅ Deployed Environment
+      - name: 🚀 Deployed Environment
         run: curl "${{ steps.deploy.outputs.url }}"
 
-      - name: ✅ Send message to Slack Channel
+      - name: 🚀 Send message to Slack Channel
         id: slack
         uses: slackapi/slack-github-action@v1.18.0
         with:
