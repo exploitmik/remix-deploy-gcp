@@ -38,41 +38,44 @@ jobs:
       - name: 🚀 Build Remix App
         run: yarn build
 
-      - name: 🚀 Authentication Google Cloud
-        id: "auth"
-        uses: "google-github-actions/auth@v0"
-        with:
-          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+      - name: Listagem
+        run: ls -la
 
-      - name: 🚀 Deploy to App Engine
-        id: deploy
-        uses: google-github-actions/deploy-appengine@v0
-        with:
-          deliverables: app.yaml
-          version: v1
-          promote: false
-          project_id: ${{ secrets.GCP_PROJECT }}
+      # - name: 🚀 Authentication Google Cloud
+      #   id: "auth"
+      #   uses: "google-github-actions/auth@v0"
+      #   with:
+      #     credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
 
-      - name: 🚀 Deployed Environment
-        run: curl "${{ steps.deploy.outputs.url }}"
+      # - name: 🚀 Deploy to App Engine
+      #   id: deploy
+      #   uses: google-github-actions/deploy-appengine@v0
+      #   with:
+      #     deliverables: app.yaml
+      #     version: v1
+      #     promote: false
+      #     project_id: ${{ secrets.GCP_PROJECT }}
 
-      - name: 🚀 Send message to Slack Channel
-        id: slack
-        uses: slackapi/slack-github-action@v1.18.0
-        with:
-          payload: |
-            {
-              "text": "Deploy realizado",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Uma nova versão de remix-app foi enviada para produção! usuário de quem mergeou, nome do PR, informações importantes"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+      # - name: 🚀 Deployed Environment
+      #   run: curl "${{ steps.deploy.outputs.url }}"
+
+      # - name: 🚀 Send message to Slack Channel
+      #   id: slack
+      #   uses: slackapi/slack-github-action@v1.18.0
+      #   with:
+      #     payload: |
+      #       {
+      #         "text": "Deploy realizado",
+      #         "blocks": [
+      #           {
+      #             "type": "section",
+      #             "text": {
+      #               "type": "mrkdwn",
+      #               "text": "Uma nova versão de remix-app foi enviada para produção! usuário de quem mergeou, nome do PR, informações importantes"
+      #             }
+      #           }
+      #         ]
+      #       }
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      #     SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
