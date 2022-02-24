@@ -24,8 +24,12 @@ jobs:
           DEPLOY_STAGGED: false
         run: echo ${{ env.DEPLOY_ENVIRONMENT }}
   say:
-    - name: "Say Hi!"
-      run: echo hellloooow
+    name: Other job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Say Hi!"
+        run: echo hellloooow
 
       # - name: 🚀 Cache node_modules
       #   id: cache-node-modules
