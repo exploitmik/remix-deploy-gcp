@@ -38,9 +38,6 @@ jobs:
       - name: 🚀 Build Remix App
         run: yarn build
 
-      - name: 🚀 Remover node_modules
-        run: rm -rf node_modules
-
       - name: 🚀 Authentication Google Cloud
         id: "auth"
         uses: "google-github-actions/auth@v0"
