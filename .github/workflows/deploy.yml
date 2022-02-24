@@ -18,61 +18,67 @@ jobs:
       - name: 🚀 Checkout
         uses: actions/checkout@v2
 
-      - name: 🚀 Cache node_modules
-        id: cache-node-modules
-        uses: actions/cache@v2
+      - name: Environments
         env:
-          cache-name: cache-node-modules-deploy
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          DEPLOY_ENVIRONMENT: production
+          DEPLOY_STAGGED: false
+        run: echo ${{ env.DEPLOY_ENVIRONMENT }}
 
-      - name: 🚀 Install dependencies
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
+      # - name: 🚀 Cache node_modules
+      #   id: cache-node-modules
+      #   uses: actions/cache@v2
+      #   env:
+      #     cache-name: cache-node-modules-deploy
+      #   with:
+      #     path: node_modules
+      #     key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-build-${{ env.cache-name }}-
+      #       ${{ runner.os }}-build-
+      #       ${{ runner.os }}-
 
-      - name: 🚀 Build Remix App
-        run: yarn build
+      # - name: 🚀 Install dependencies
+      #   if: steps.cache-node-modules.outputs.cache-hit != 'true'
+      #   run: yarn install --frozen-lockfile
 
-      - name: 🚀 Authentication Google Cloud
-        id: "auth"
-        uses: "google-github-actions/auth@v0"
-        with:
-          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+      # - name: 🚀 Build Remix App
+      #   run: yarn build
 
-      - name: 🚀 Deploy to App Engine
-        id: deploy
-        uses: google-github-actions/deploy-appengine@v0
-        with:
-          deliverables: app.yaml
-          version: v1
-          promote: false
-          project_id: ${{ secrets.GCP_PROJECT }}
+      # - name: 🚀 Authentication Google Cloud
+      #   id: "auth"
+      #   uses: "google-github-actions/auth@v0"
+      #   with:
+      #     credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
 
-      - name: 🚀 Deployed Environment
-        run: curl "${{ steps.deploy.outputs.url }}"
+      # - name: 🚀 Deploy to App Engine
+      #   id: deploy
+      #   uses: google-github-actions/deploy-appengine@v0
+      #   with:
+      #     deliverables: app.yaml
+      #     version: v1
+      #     promote: false
+      #     project_id: ${{ secrets.GCP_PROJECT }}
 
-      - name: 🚀 Send message to Slack Channel
-        id: slack
-        uses: slackapi/slack-github-action@v1.18.0
-        with:
-          payload: |
-            {
-              "text": "Deploy realizado",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "Uma nova versão de remix-app foi enviada para produção! usuário de quem mergeou, nome do PR, informações importantes"
-                  }
-                }
-              ]
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+      # - name: 🚀 Deployed Environment
+      #   run: curl "${{ steps.deploy.outputs.url }}"
+
+      # - name: 🚀 Send message to Slack Channel
+      #   id: slack
+      #   uses: slackapi/slack-github-action@v1.18.0
+      #   with:
+      #     payload: |
+      #       {
+      #         "text": "Deploy realizado",
+      #         "blocks": [
+      #           {
+      #             "type": "section",
+      #             "text": {
+      #               "type": "mrkdwn",
+      #               "text": "Uma nova versão de remix-app foi enviada para produção! usuário de quem mergeou, nome do PR, informações importantes"
+      #             }
+      #           }
+      #         ]
+      #       }
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      #     SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
