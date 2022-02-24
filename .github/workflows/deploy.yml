@@ -16,8 +16,10 @@ jobs:
         uses: styfle/cancel-workflow-action@0.9.1
 
       - name: 🚀 Checkout
-        id: checkout
         uses: actions/checkout@v2
+
+      - name: Arroz
+        id: checkout
         run: echo "::set-output name=modified::arroz"
 
       - name: Environments
