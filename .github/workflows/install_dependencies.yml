@@ -1,5 +1,9 @@
 name: Install dependencies
 
+on:
+  pull_request:
+    branches: [main]
+
 jobs:
   checkout:
     name: Checkout code
