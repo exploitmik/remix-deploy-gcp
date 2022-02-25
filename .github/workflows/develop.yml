@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: Build application
-    uses: ./install_dependencies.yml@develop
+    uses: ./.github/workflows/install_dependencies.yml@develop
 
     steps:
       - name: 🚀 Build Remix App
