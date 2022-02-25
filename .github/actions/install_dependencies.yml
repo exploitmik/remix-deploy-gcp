@@ -1,0 +1,30 @@
+name: Install dependencies
+
+jobs:
+  checkout:
+    name: Checkout code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚀 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - name: 🚀 Checkout
+        uses: actions/checkout@v2
+
+      - name: 🚀 Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules-deploy
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: 🚀 Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: yarn install --frozen-lockfile
