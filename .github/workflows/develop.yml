@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: ../actions/install_dependencies.yml
+        uses: ./.github/actions/install_dependencies.yml
 
       - name: 🚀 Build Remix App
         run: yarn build
