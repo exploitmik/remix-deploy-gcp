@@ -1,8 +1,7 @@
 name: Install dependencies
 
 on:
-  pull_request:
-    branches: [main]
+  workflow_call:
 
 jobs:
   checkout:
