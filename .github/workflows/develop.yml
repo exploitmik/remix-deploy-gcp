@@ -7,8 +7,10 @@ on:
 jobs:
   build:
     name: Build application
-    uses: ./.github/workflows/install_dependencies.yml
 
     steps:
+      - name: Install dependencies
+        uses: ./.github/workflows/install_dependencies.yml
+
       - name: 🚀 Build Remix App
         run: yarn build
