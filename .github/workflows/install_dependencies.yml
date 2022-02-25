@@ -31,3 +31,9 @@ jobs:
       - name: 🚀 Install dependencies
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
+
+      - name: Upload dependencies
+        uses: actions/upload-artifact@v2
+        with:
+          name: checkout-code-dependencies
+          path: package.json
