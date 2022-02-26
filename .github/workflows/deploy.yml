@@ -15,22 +15,10 @@ jobs:
       - name: 🚀 Checkout
         uses: actions/checkout@v2
 
-      - name: 🚀 Cache node_modules
-        id: cache-node-modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules-deploy
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
-      - name: 🚀 Install dependencies
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: yarn install --frozen-lockfile
+      - name: NPM or Yarn install with caching
+          uses: bahmutov/npm-install@v1.6.0
+          with:
+            install-command: yarn --frozen-lockfile
 
       - name: 🚀 Build Remix App
         run: yarn build
